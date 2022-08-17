@@ -42,47 +42,19 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
             Console.WriteLine($"Nome: {nome} Espécie: {especie}");
         }
 
-<<<<<<< HEAD
-=======
-        public Raca ObterPorId(int id)
+       public Raca ObterPorId(int id)
         {
             var raca = _racaRepositorio.ObterPorId(id);
 
             return raca;
         }
 
->>>>>>> d40bbab2a50f936b9ec775a9b831c826320d4654
         public List<Raca> ObterTodos()
         {
             var racasDoBanco = _racaRepositorio.ObterTodos();
 
             return racasDoBanco;
         }
-<<<<<<< HEAD
 
-        public void Alterar(int id, string nome, string especie)
-        {
-            var raca = new Raca();
-            raca.Id = id;
-            raca.Nome = nome.Trim();
-            raca.Especie= especie;
-
-            _racaRepositorio.Atualizar(raca);
-        }
-
-        public void Apagar(int id)
-        {
-            _racaRepositorio.Apagar(id);
-        }
-
-        public Raca ObterPorId(int id)
-        {
-           var raca = _racaRepositorio.ObterPorId(id);
-
-            return raca;
-        }
-        
-=======
->>>>>>> d40bbab2a50f936b9ec775a9b831c826320d4654
     }
 }

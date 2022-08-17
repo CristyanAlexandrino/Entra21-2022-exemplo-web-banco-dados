@@ -29,11 +29,9 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Repositorio
 
             raca.Nome = racaParaAlterar.Nome;
             raca.Especie = racaParaAlterar.Especie;
-<<<<<<< HEAD
-=======
 
             _contexto.Update(raca);
->>>>>>> d40bbab2a50f936b9ec775a9b831c826320d4654
+            _contexto.SaveChanges();
         }
 
         public void Cadastrar(Raca raca)
@@ -46,24 +44,21 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Repositorio
         public Raca ObterPorId(int id)
         {
             var raca = _contexto.Racas.Where(x => x.Id == id).FirstOrDefault();
-<<<<<<< HEAD
-=======
 
->>>>>>> d40bbab2a50f936b9ec775a9b831c826320d4654
             return raca;
         }
 
         public List<Raca> ObterTodos()
         {
-<<<<<<< HEAD
+
             return _contexto.Racas.ToList();
-=======
+
             // Buscar todos os registros de raças
             // SELECT * FROM racas
             var racas = _contexto.Racas.ToList();
 
             return racas;
->>>>>>> d40bbab2a50f936b9ec775a9b831c826320d4654
+
         }
     }
 }
