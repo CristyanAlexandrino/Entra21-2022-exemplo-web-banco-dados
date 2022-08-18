@@ -44,12 +44,12 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
             return View();
         }
 
-        [Route("/raca/registrar")]
-        [HttpGet]
-        public IActionResult Registrar(
+        [Route("/raca/cadastrar")]
+        [HttpPost]
+        public IActionResult Cadastrar(
 
-            [FromQuery] string nome,
-            [FromQuery] string especie)
+            [FromForm] string nome,
+            [FromForm] string especie)
         {
             _racaServico.Cadastrar(nome, especie);
 
@@ -78,15 +78,15 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
             return View("Editar");
 
         }
-        [HttpGet]
+        [HttpPost]
         [Route("/raca/alterar")]
 
-        public IActionResult Alterar(
-            [FromQuery] int id,
-            [FromQuery] string nome,
-            [FromQuery] string especie)
+        public IActionResult Editar(
+            [FromForm] int id,
+            [FromForm] string nome,
+            [FromForm] string especie)
         {
-            _racaServico.Alterar(id, nome, especie);
+            _racaServico.Editar(id, nome, especie);
 
             return RedirectToAction("Index");
         }
