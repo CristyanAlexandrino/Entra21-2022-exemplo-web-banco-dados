@@ -1,7 +1,5 @@
 ﻿using Entra21.CSharp.ClinicaVeterinaria.Repositorio.BancoDados;
 using Entra21.CSharp.ClinicaVeterinaria.Repositorio.Entidades;
-using System.Linq;
-
 
 namespace Entra21.CSharp.ClinicaVeterinaria.Repositorio
 {
@@ -20,6 +18,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Repositorio
             var raca = _contexto.Racas.Where(x => x.Id == id).FirstOrDefault();
 
             _contexto.Racas.Remove(raca);
+            _contexto.SaveChanges();
         }
 
         public void Atualizar(Raca racaParaAlterar)
@@ -50,15 +49,11 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Repositorio
 
         public List<Raca> ObterTodos()
         {
-
-            return _contexto.Racas.ToList();
-
             // Buscar todos os registros de raças
             // SELECT * FROM racas
             var racas = _contexto.Racas.ToList();
 
             return racas;
-
         }
     }
 }
