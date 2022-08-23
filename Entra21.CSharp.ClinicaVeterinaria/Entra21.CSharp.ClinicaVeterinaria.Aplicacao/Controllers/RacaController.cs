@@ -1,7 +1,7 @@
 ﻿using Entra21.CSharp.ClinicaVeterinaria.Repositorio.BancoDados;
 using Entra21.CSharp.ClinicaVeterinaria.Repositorio.Enuns;
 using Entra21.CSharp.ClinicaVeterinaria.Servico;
-using Entra21.CSharp.ClinicaVeterinaria.Servico.ViewModels;
+using Entra21.CSharp.ClinicaVeterinaria.Servico.ViewModels.Racas;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
@@ -28,10 +28,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         {
             var racas = _racaServico.ObterTodos();
 
-            // Passar informação do C# para o HTML
-            ViewBag.Racas = racas;
-
-            return View("Index");
+            return View("Index", racas);
         }
 
         [HttpGet("/raca/cadastrar")]
@@ -47,11 +44,9 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         }
 
         [HttpPost("/raca/Cadastrar")]
-        public IActionResult Cadastrar(
-            [FromForm] RacaCadastrarViewModel racaCadastrarViewModel)
+        public IActionResult Cadastrar([FromForm] RacaCadastrarViewModel racaCadastrarViewModel)
         {
             // Valida o parâmetro recebido na Action se é inválido
-            //if (ModelState.IsValid == false)
             if (!ModelState.IsValid)
             {
                 ViewBag.Especies = ObterEspecies();
@@ -79,16 +74,28 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
             var raca = _racaServico.ObterPorId(id);
             var especies = ObterEspecies();
 
-            ViewBag.Raca = raca;
+            var racaEditarViewModel = new RacaEditarViewModel
+            {
+                Id = raca.Id,
+                Nome = raca.Nome,
+                Especie = raca.Especie
+            };
+
             ViewBag.Especies = especies;
 
-            return View("Editar");
+            return View(racaEditarViewModel);
         }
 
         [HttpPost("/raca/editar")]
-        public IActionResult Editar(
-            [FromForm] RacaEditarViewModel racaEditarViewModel)
+        public IActionResult Editar([FromForm] RacaEditarViewModel racaEditarViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Especies = ObterEspecies();
+
+                return View(racaEditarViewModel);
+            }
+
             _racaServico.Editar(racaEditarViewModel);
 
             return RedirectToAction("Index");
@@ -96,9 +103,10 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
 
         private List<string> ObterEspecies()
         {
-            return Enum.GetNames<Especie>()
-                            .OrderBy(x => x)
-                            .ToList();
+            return Enum
+                .GetNames<Especie>()
+                .OrderBy(x => x)
+                .ToList();
         }
     }
 }
