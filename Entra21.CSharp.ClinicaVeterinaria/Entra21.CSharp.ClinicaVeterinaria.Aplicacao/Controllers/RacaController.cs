@@ -14,9 +14,9 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         /* Construtor: objetivo - construir o objeto de RacaController,
          com o mínimo necessário para o funcionamento correto */
 
-        public RacaController(ClinicaVeterinariaContexto contexto)
+        public RacaController(IRacaServico racaServico)
         {
-            _racaServico = new RacaServico(contexto);
+            _racaServico = racaServico;
         }
 
         /// <summary>

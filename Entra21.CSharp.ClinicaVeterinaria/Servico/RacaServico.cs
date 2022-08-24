@@ -12,9 +12,9 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
     {
         private readonly IRacaRepositorio _racaRepositorio;
 
-        public RacaServico(ClinicaVeterinariaContexto contexto)
+        public RacaServico(IRacaRepositorio racaRepositorio)
         {
-            _racaRepositorio = new RacaRepositorio(contexto);
+            _racaRepositorio = racaRepositorio;
         }
 
         public void Editar(RacaEditarViewModel racaEditarViewModel)
